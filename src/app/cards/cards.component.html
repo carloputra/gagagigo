@@ -1,0 +1,10 @@
+<div style="display: flex; flex-direction: column;">
+  <div style="height: 200px">
+      <mat-slider #cardSizeSlider min="1" max="5" step="1" value="1" thumbLabel></mat-slider>
+  </div>
+    <mat-grid-list id="card-grid" [cols]="matGridOptions$.cols" [rowHeight]="matGridOptions$.rowHeight" style="flex: 1;">
+        <mat-grid-tile *ngFor="let card of cards$">
+          <app-card [card$]="card"></app-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

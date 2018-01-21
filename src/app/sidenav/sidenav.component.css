@@ -1,0 +1,14 @@
+.main-div{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.button-container > button {
+    width: 100%;
+    height: 56px;
+    background-color: transparent;
+    color: white;
+    border-bottom: 1px solid #565656;
+}
