@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSlider } from '@angular/material';
+import { ApiaryService } from '../_service/apiary.service';
+import { forEach } from '@angular/router/src/utils/collection';
+import { FirestoreService } from '../_service/firestore.service';
+import { Subscription } from 'rxjs/Subscription';
+import { EventService } from '../_service/event.service';
 
 @Component({
   selector: 'app-cards',
@@ -8,77 +13,72 @@ import { MatSlider } from '@angular/material';
 })
 export class CardsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiary: ApiaryService, private firestore: FirestoreService, private eventService: EventService) { }
 
-  cards$: {}[] = [];
+  cardWidth$: number = 50;
 
-  @ViewChild('cardSizeSlider') cardSizeSlider$: MatSlider;
-
-  ngOnInit() {
-    for (let i = 0; i < 41; i++) {
-
-      let type = '#ffbf00'; //monster
-
-      let random = Math.floor(Math.random() * 10) + 1
-      switch (random) {
-        case 5:
-          type = '#00A86B'; //spell
-          break;
-        case 6:
-          type = '#7c5299'; //trap
-          break;
-        case 7:
-          type = '#007ba7'; //link
-          break;
-        case 8:
-          type = '#cccccc'; //synchro
-          break;
-        case 8:
-          type = '#363636'; //xyz
-          break;
-      }
-
-      this.cards$.push({ id: i, type: type });
-    }
-
-    this.cardSizeSlider$.registerOnChange((value) => {
-      this.onCardSizeSliderChanged(value);
-    });
-
-    let self = this;
-
-    window.addEventListener('resize', function(){
-      self.updateCardGridCols();
-    }, true);
-
-  }
+  cards$: Card[] = [];
+  selectedCard$: Card;
 
   matGridOptions$: { cols: number, rowHeight: string} = {
     cols: 10,
     rowHeight: '10:14',
   };
 
-  cardWidth: number = 50;
+  @ViewChild('cardSizeSlider') cardSizeSlider$: MatSlider;
+
+  eventSubscription$: Subscription;
+
+  ngOnInit() {
+    
+    let self = this;
+
+    this.initializeCards();
+
+    this.eventSubscription$ = this.eventService.changeEmitted$.subscribe((event) =>{
+      if(event.id == 'card'){
+        
+        self.selectedCard$ = event.card;
+
+      }
+    });
+    
+    this.cardSizeSlider$.registerOnChange((value) => {
+      this.onCardSizeSliderChanged(value);
+    });
+
+    window.addEventListener('resize', function(){
+      self.updateCardGridCols();
+    }, true);
+  }
+
+  ngOnDestroy(){
+    this.eventSubscription$.unsubscribe();
+  }
+
+  initializeCards(){
+
+    let self = this;
+
+    this.firestore.getAllCards().subscribe((result) => {
+      result.forEach(element => {        
+        self.cards$.push((<Card>element));
+      });
+    });
+  }
+
+  onButtonClick(){
+
+  }
 
   onCardSizeSliderChanged(value: any) {
 
-    switch (value.toString()) {
-      case '1':
-        this.cardWidth = 50;
-        break;
-      case '2':
-      this.cardWidth = 100;
-        break;
-      case '3':
-      this.cardWidth = 150;
-        break;
-      case '4':
-      this.cardWidth = 200;
-        break;
-      case '5':
-      this.cardWidth = 250;
-        break;
-    }
+    let minWidth = 50;
+    let maxWidth = 250;
+    let stepperWidth = (250 - 50) / 100;
+
+    this.cardWidth$ = (stepperWidth * value) + minWidth;
+    
     
     this.updateCardGridCols();
   }
@@ -86,7 +86,7 @@ export class CardsComponent implements OnInit {
   updateCardGridCols(){
 
     let cols = 0;
-    cols = document.getElementById('card-grid').clientWidth / this.cardWidth;
+    cols = document.getElementById('card-grid').clientWidth / this.cardWidth$;
 
     cols = Math.floor(cols);
 

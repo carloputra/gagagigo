@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { EventService } from '../../_service/event.service';
 
 @Component({
   selector: 'app-card',
@@ -7,11 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   @Input() card$: {};
 
   ngOnInit() {
+  }
+
+  onCardClick(selectedCard: Card){
+    this.eventService.emitChange({id: 'card', card: selectedCard});
   }
 
 }
