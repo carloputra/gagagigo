@@ -7,6 +7,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import { RouterModule, Routes } from '@angular/router';
 
+import { DragulaModule } from 'ng2-dragula';
+
 import 
 { 
   MatButtonModule, MatSidenavModule, MatToolbarModule, MatGridListModule,
@@ -29,6 +31,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { EventService } from './_service/event.service';
 import { CardDetailComponent } from './cards/card-detail/card-detail.component';
+import { DeckComponent } from './deck/deck.component';
 
 
 const appRoutes: Routes = [
@@ -36,6 +39,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'cards', component: CardsComponent },
+  { path: 'deck', component: DeckComponent },
 ];
 
 export const firebaseConfig = {
@@ -55,6 +59,7 @@ export const firebaseConfig = {
     CardsComponent,
     CardComponent,
     CardDetailComponent,
+    DeckComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -63,6 +68,8 @@ export const firebaseConfig = {
     BrowserModule,
     BrowserAnimationsModule, 
     RouterModule.forRoot(appRoutes),
+
+    DragulaModule,
 
     HttpClientModule,
     

@@ -1,0 +1,11 @@
+@import "~dragula/dist/dragula.css";
+
+.card-container{
+    display: flex;
+    
+}
+
+.app-card-container{
+    border: 2px solid #363636;
+    box-sizing: border-box;
+}

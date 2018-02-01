@@ -10,7 +10,7 @@ export class CardComponent implements OnInit {
 
   constructor(private eventService: EventService) { }
 
-  @Input() card$: {};
+  @Input() card$: Card;
 
   ngOnInit() {
   }

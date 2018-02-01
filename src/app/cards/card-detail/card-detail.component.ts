@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CardDetailComponent implements OnInit {
 
-  @Input() card$: Observable<Card> | Card;
+  @Input() card$: Card;
 
   constructor() { }
 
