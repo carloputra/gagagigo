@@ -1,12 +1,12 @@
 <div style="display: flex; flex-direction: column;">
-  <img [src]="card$.image_path" width="360px" height="504px">
+  <img [src]="image_path" width="360px" height="504px">
 
   <div styl="flex: 1;">
     <div>
-        <p style="font-weight: bold;">{{card$.name}}</p>
+        <p style="font-weight: bold;">{{card.name}}</p>
     </div>
     <div>
-        <p>{{card$.text}}</p>
+        <p>{{card.desc}}</p>
     </div>
 </div>
 

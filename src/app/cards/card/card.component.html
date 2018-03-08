@@ -1,3 +1,4 @@
-<div [style.background-color]="card$.type" style="height: 100%; width: 100%;">
-  <img [src]="card$.image_path" class="card" (click)="onCardClick(card$)">
+<!-- <div [style.background-color]="card.type" style="height: 100%; width: 100%;"> -->
+<div style="height: 100%; width: 100%;" (click)="onCardClick(card)">
+  <img [src]="thumbnail_path" class="card">
 </div>

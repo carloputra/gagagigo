@@ -3,7 +3,7 @@
   <div id="trunkContainer" class="card-container trunk wrapper">
     <div id="card-grid" style="width: 100%; font-size: 0px;" class='container' [dragula]='"dirt-bag"' [dragulaModel]='trunk$'>
       <div class="app-card-container" style="display:inline-block;" [style.height]="cardHeight$" [style.width]="cardWidth$" *ngFor="let card of trunk$">
-        <app-card [card$]="card"></app-card>
+        <app-card [card]="card"></app-card>
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
   <div id="deckContainer" class="card-container deck wrapper">
     <div style="width: 100%; font-size: 0px;" class='container' [dragula]='"dirt-bag"' [dragulaModel]='deck$'>
       <div class="app-card-container" style="display:inline-block;" [style.height]="cardHeight$" [style.width]="cardWidth$" *ngFor="let card of deck$">
-        <app-card [card$]="card"></app-card>
+        <app-card [card]="card"></app-card>
       </div>
     </div>
   </div>

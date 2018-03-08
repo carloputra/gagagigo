@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { DragulaService } from 'ng2-dragula';
 
+import { Card } from '../_model/card';
+
 @Component({
   selector: 'app-deck',
   templateUrl: './deck.component.html',

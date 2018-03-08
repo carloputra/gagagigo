@@ -3,16 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RouterModule, Routes } from '@angular/router';
 
 import { DragulaModule } from 'ng2-dragula';
 
-import 
-{ 
+import {
   MatButtonModule, MatSidenavModule, MatToolbarModule, MatGridListModule,
-  MatSliderModule,
+  MatSliderModule, MatPaginatorModule
 } from '@angular/material';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -24,6 +23,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { CardsComponent } from './cards/cards.component';
 import { CardComponent } from './cards/card/card.component';
 
+import { CardService } from './_service/card.service';
 import { ApiaryService } from './_service/apiary.service';
 import { FirestoreService } from './_service/firestore.service';
 
@@ -36,7 +36,7 @@ import { DeckComponent } from './deck/deck.component';
 
 const appRoutes: Routes = [
 
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'cards', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'cards', component: CardsComponent },
   { path: 'deck', component: DeckComponent },
@@ -66,18 +66,17 @@ export const firebaseConfig = {
     AngularFirestoreModule,
 
     BrowserModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
 
     DragulaModule,
-
     HttpClientModule,
-    
-    MatButtonModule, MatSidenavModule, MatToolbarModule, MatGridListModule, MatSliderModule,
+
+    MatButtonModule, MatSidenavModule, MatToolbarModule, MatGridListModule, MatSliderModule, MatPaginatorModule,
 
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [ApiaryService, FirestoreService, EventService],
+  providers: [CardService, ApiaryService, EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
+import { Card } from '../_model/card';
+
+
 @Injectable()
 export class FirestoreService {
 
@@ -14,7 +17,7 @@ export class FirestoreService {
   }
 
   upsertCard(card: Card){
-    this.firestore.collection('cards').doc(card.number.toString()).set(card, {merge: true}).then(() => {console.log('success'); })
+    // this.firestore.collection('cards').doc(card.number.toString()).set(card, {merge: true}).then(() => {console.log('success'); })
   }
 
   getAllCards(): Observable<any>{
